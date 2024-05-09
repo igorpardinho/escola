@@ -23,6 +23,7 @@ public class CrudAlunoService {
             System.out.println("Qual ação você deseja tomar? ");
             System.out.println("Digite 1 - para cadastrar um aluno: ");
             System.out.println("Digite 2 - para listar os alunos: ");
+            System.out.println("Digite 3 - para atualizar um aluno: ");
             System.out.println("Digite 0 - para voltar ao menu: ");
 
             int option = scanner.nextInt();
@@ -32,6 +33,9 @@ public class CrudAlunoService {
                     break;
                 case 2:
                     listarAlunos();
+                    break;
+                case 3:
+                    atualizarAluno();
                     break;
                 default:
                     isTrue = false;
@@ -69,7 +73,9 @@ public class CrudAlunoService {
         System.out.println(alunoRepository.findAll());
 
     }
-    private void atualizarAluno(Scanner sc) {
+
+    private void atualizarAluno() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Digite o id do Aluno pra atualizar");
         Long id = sc.nextLong();
 
@@ -84,7 +90,7 @@ public class CrudAlunoService {
             aluno.setEndereco(sc.nextLine());
             alunoRepository.save(aluno);
 
-        }else {
+        } else {
             System.out.println("Aluno não encontrado");
         }
     }
