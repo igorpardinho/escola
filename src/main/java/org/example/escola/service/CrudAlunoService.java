@@ -4,7 +4,7 @@ import org.example.escola.Repository.AlunoRepository;
 import org.example.escola.orm.Aluno;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 import java.util.Scanner;
 
 @Service
@@ -17,7 +17,7 @@ public class CrudAlunoService {
     }
 
     public void menu(Scanner scanner) {
-        Boolean isTrue = true;
+        boolean isTrue = true;
         while (isTrue) {
             System.out.println("Qual ação você deseja tomar? ");
             System.out.println("Digite 1 - para cadastrar um aluno: ");

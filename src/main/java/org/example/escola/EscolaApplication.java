@@ -1,9 +1,6 @@
 package org.example.escola;
 
-import org.example.escola.Repository.AlunoRepository;
-import org.example.escola.Repository.ProfessorRepository;
-import org.example.escola.orm.Aluno;
-import org.example.escola.orm.Professor;
+
 import org.example.escola.service.CrudAlunoService;
 import org.example.escola.service.CrudProfessorService;
 import org.springframework.boot.CommandLineRunner;
@@ -39,7 +36,7 @@ public class EscolaApplication implements CommandLineRunner {
             System.out.println("Digite 2 - para interagir com o aluno");
             System.out.println("Digite 0 - para sair ");
 
-            Integer digito = sc.nextInt();
+            int digito = sc.nextInt();
 
             sc = new Scanner(System.in);
             switch (digito) {
