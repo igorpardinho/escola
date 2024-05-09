@@ -5,6 +5,7 @@ import org.example.escola.orm.Aluno;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service
@@ -67,6 +68,25 @@ public class CrudAlunoService {
     private void listarAlunos() {
         System.out.println(alunoRepository.findAll());
 
+    }
+    private void atualizarAluno(Scanner sc) {
+        System.out.println("Digite o id do Aluno pra atualizar");
+        Long id = sc.nextLong();
+
+        Optional<Aluno> optionalAluno = this.alunoRepository.findById(id);
+
+        if (optionalAluno.isPresent()) {
+            Aluno aluno = optionalAluno.get();
+            aluno.setNome(sc.nextLine());
+            aluno.setCpf(sc.nextLine());
+            aluno.setTelefone(sc.nextLine());
+            aluno.setEmail(sc.nextLine());
+            aluno.setEndereco(sc.nextLine());
+            alunoRepository.save(aluno);
+
+        }else {
+            System.out.println("Aluno não encontrado");
+        }
     }
 
 }
