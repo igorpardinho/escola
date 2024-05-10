@@ -1,6 +1,6 @@
 package org.example.escola.service;
 
-import org.example.escola.Repository.ProfessorRepository;
+import org.example.escola.repository.ProfessorRepository;
 import org.example.escola.orm.Professor;
 import org.springframework.stereotype.Service;
 
