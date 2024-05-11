@@ -23,6 +23,7 @@ public class CrudProfessorService {
             System.out.println("Digite 1 - para cadastrar um professor: ");
             System.out.println("Digite 2 - para listar os professores: ");
             System.out.println("Digite 3 - para atualizar um professor: ");
+            System.out.println("Digite 4 - para deletar um professor: ");
             System.out.println("Digite 0 - para voltar ao menu: ");
 
             int option = scanner.nextInt();
@@ -36,6 +37,9 @@ public class CrudProfessorService {
                     break;
                 case 3:
                     atualizarProfessor();
+                    break;
+                case 4:
+                    deleteProfessor();
                     break;
                 default:
                     isTrue = false;
@@ -103,5 +107,13 @@ public class CrudProfessorService {
             System.out.println("Professor não encontrado");
         }
 
+
+    }
+    public void deleteProfessor() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Qual o id do professor que deseja deletar? ");
+        Long id = sc.nextLong();
+        professorRepository.deleteById(id);
+        System.out.println("Professor deletado com sucesso!");
     }
 }
