@@ -1,6 +1,6 @@
 package org.example.escola.service;
 
-import org.example.escola.orm.Aluno;
+
 import org.example.escola.repository.ProfessorRepository;
 import org.example.escola.orm.Professor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class CrudProfessorService {
     }
 
     public void menu(Scanner scanner) {
-        Boolean isTrue = true;
+        boolean isTrue = true;
         while (isTrue) {
             System.out.println("Qual ação você deseja tomar? ");
             System.out.println("Digite 1 - para cadastrar um professor: ");
