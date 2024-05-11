@@ -70,7 +70,7 @@ public class CrudAlunoService {
     }
 
     private void listarAlunos() {
-        System.out.println(alunoRepository.findAll());
+        alunoRepository.findAll().forEach(System.out::println);
 
     }
 
