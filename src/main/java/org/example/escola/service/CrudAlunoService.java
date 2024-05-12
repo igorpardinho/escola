@@ -17,13 +17,15 @@ public class CrudAlunoService {
         this.alunoRepository = alunoRepository;
     }
 
-    public void menu(Scanner scanner) {
+    public void menu() {
+        Scanner scanner = new Scanner(System.in);
         boolean isTrue = true;
         while (isTrue) {
             System.out.println("Qual ação você deseja tomar? ");
             System.out.println("Digite 1 - para cadastrar um aluno: ");
             System.out.println("Digite 2 - para listar os alunos: ");
             System.out.println("Digite 3 - para atualizar um aluno: ");
+            System.out.println("Digite 4 - para deletar um aluno: ");
             System.out.println("Digite 0 - para voltar ao menu: ");
 
             int option = scanner.nextInt();
@@ -37,6 +39,9 @@ public class CrudAlunoService {
                 case 3:
                     atualizarAluno();
                     break;
+                case 4:
+                    deletarAluno();
+                    break;
                 default:
                     isTrue = false;
                     break;
@@ -44,6 +49,19 @@ public class CrudAlunoService {
         }
         System.out.println();
 
+    }
+
+    private void deletarAluno() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o id do aluno que deseja deletar: ");
+        Long id = sc.nextLong();
+        Optional<Aluno> aluno = alunoRepository.findById(id);
+        if (aluno.isPresent()) {
+            alunoRepository.deleteById(id);
+            System.out.println("Aluno deletado com sucesso!");
+        } else {
+            System.out.println("Aluno não encontrado");
+        }
     }
 
 
@@ -66,11 +84,17 @@ public class CrudAlunoService {
 
         Aluno aluno = new Aluno(nome, cpf, telefone, email, endereco);
         alunoRepository.save(aluno);
+        System.out.println("Aluno cadastrado com sucesso!");
 
     }
 
     private void listarAlunos() {
-        alunoRepository.findAll().forEach(System.out::println);
+        if (alunoRepository.count() == 0) {
+            System.out.println("Nenhum aluno encontrado");
+        } else {
+            alunoRepository.findAll().forEach(System.out::println);
+        }
+
 
     }
 

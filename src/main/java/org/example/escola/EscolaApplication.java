@@ -11,12 +11,12 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class EscolaApplication implements CommandLineRunner {
-    private CrudProfessorService professorService;
-    private CrudAlunoService alunoService;
+    private final CrudProfessorService PROFESSOR_SERVICE;
+    private final CrudAlunoService ALUNO_SERVICE;
 
-    public EscolaApplication(CrudProfessorService professorService, CrudAlunoService alunoService) {
-        this.professorService = professorService;
-        this.alunoService = alunoService;
+    public EscolaApplication(CrudProfessorService PROFESSOR_SERVICE, CrudAlunoService ALUNO_SERVICE) {
+        this.PROFESSOR_SERVICE = PROFESSOR_SERVICE;
+        this.ALUNO_SERVICE = ALUNO_SERVICE;
     }
 
 
@@ -41,10 +41,10 @@ public class EscolaApplication implements CommandLineRunner {
             sc = new Scanner(System.in);
             switch (digito) {
                 case 1:
-                    professorService.menu(sc);
+                    PROFESSOR_SERVICE.menu();
                     break;
                 case 2:
-                    alunoService.menu(sc);
+                    ALUNO_SERVICE.menu();
                     break;
                 default:
                     isTrue = false;

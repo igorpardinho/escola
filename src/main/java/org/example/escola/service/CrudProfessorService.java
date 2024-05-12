@@ -16,7 +16,8 @@ public class CrudProfessorService {
         this.professorRepository = professorRepository;
     }
 
-    public void menu(Scanner scanner) {
+    public void menu() {
+        Scanner scanner = new Scanner(System.in);
         boolean isTrue = true;
         while (isTrue) {
             System.out.println("Qual ação você deseja tomar? ");
@@ -59,14 +60,21 @@ public class CrudProfessorService {
         System.out.println("Digite o numero do prontuario do professor: ");
         String numProntuario = scanner.nextLine();
 
+
         Professor professor = new Professor(nome, numProntuario);
+
         professorRepository.save(professor);
         System.out.println("Professor cadastrado com sucesso!");
 
     }
 
     private void listarProfessores() {
-        professorRepository.findAll().forEach(System.out::println);
+        if (professorRepository.count() == 0) {
+            System.out.println("Nenhum professor encontrado!");
+        } else {
+
+            professorRepository.findAll().forEach(System.out::println);
+        }
     }
 
     private void atualizarProfessor() {
@@ -109,11 +117,18 @@ public class CrudProfessorService {
 
 
     }
+
     public void deleteProfessor() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Qual o id do professor que deseja deletar? ");
         Long id = sc.nextLong();
-        professorRepository.deleteById(id);
-        System.out.println("Professor deletado com sucesso!");
+        Optional<Professor> optionalProfessor = professorRepository.findById(id);
+        if (optionalProfessor.isPresent()) {
+            professorRepository.deleteById(id);
+            System.out.println("Professor deletado com sucesso!");
+        } else {
+            System.out.println("Professor não encontrado");
+        }
+
     }
 }
