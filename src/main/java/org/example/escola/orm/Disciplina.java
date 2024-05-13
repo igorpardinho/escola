@@ -3,20 +3,19 @@ package org.example.escola.orm;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
-@RequiredArgsConstructor
+@Table(name = "disciplinas")
 @NoArgsConstructor
+@RequiredArgsConstructor
 @ToString
-@EqualsAndHashCode
-@Table(name = "professores")
-public class Professor {
+public class Disciplina {
 
-    @OneToMany(mappedBy = "professor")
-    @Getter
-    @Setter
-    private List<Disciplina> disciplinas;
+
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    @Getter @Setter
+    @NonNull
+    private Professor professor;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +29,9 @@ public class Professor {
 
     @Getter
     @Setter
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     @NonNull
-    private String prontuario;
+    private Integer semestre;
 
 
 }

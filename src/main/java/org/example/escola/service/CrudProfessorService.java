@@ -1,6 +1,8 @@
 package org.example.escola.service;
 
 
+
+import jakarta.transaction.Transactional;
 import org.example.escola.repository.ProfessorRepository;
 import org.example.escola.orm.Professor;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
+@Transactional
 public class CrudProfessorService {
     private ProfessorRepository professorRepository;
 
@@ -69,12 +72,14 @@ public class CrudProfessorService {
     }
 
     private void listarProfessores() {
-        if (professorRepository.count() == 0) {
-            System.out.println("Nenhum professor encontrado!");
+        Iterable<Professor> professor = professorRepository.findAll();
+        if (professor.iterator().hasNext()) {
+            professor.forEach(System.out::println);
         } else {
-
-            professorRepository.findAll().forEach(System.out::println);
+            System.out.println("Nenhum professor encontrado!");
         }
+
+        System.out.println();
     }
 
     private void atualizarProfessor() {
