@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
-@Transactional
 public class CrudDisciplinaService {
     private DisciplinaRepository disciplinaRepository;
     private ProfessorRepository professorRepository;
@@ -21,6 +20,7 @@ public class CrudDisciplinaService {
         this.professorRepository = professorRepository;
     }
 
+    @Transactional
     public void menu() {
         Scanner scanner = new Scanner(System.in);
         boolean isTrue = true;
@@ -35,16 +35,16 @@ public class CrudDisciplinaService {
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    cadastrarDisciplina();
+                    this.cadastrarDisciplina();
                     break;
                 case 2:
-                    listarDisciplina();
+                    this.listarDisciplinas();
                     break;
                 case 3:
-                    atualizarDisciplina();
+                    this.atualizarDisciplina();
                     break;
                 case 4:
-                    deletarDisciplina();
+                    this.deletarDisciplina();
                     break;
                 default:
                     isTrue = false;
@@ -83,7 +83,7 @@ public class CrudDisciplinaService {
         Optional<Professor> optionalProfessor = professorRepository.findById(professorId);
         if (optionalProfessor.isPresent()) {
             Professor professor = optionalProfessor.get();
-            Disciplina disciplina = new Disciplina(professor, nome, semestre);
+            Disciplina disciplina = new Disciplina(nome, semestre,professor);
             disciplinaRepository.save(disciplina);
             System.out.println("Disciplina cadastrado com sucesso!");
         } else {
@@ -91,13 +91,13 @@ public class CrudDisciplinaService {
         }
 
     }
-
-    private void listarDisciplina() {
+@Transactional
+protected void listarDisciplinas() {
         Iterable<Disciplina> disciplinas = disciplinaRepository.findAll();
         if (disciplinas.iterator().hasNext()) {
             disciplinas.forEach(System.out::println);
-        } else {
-            System.out.println("Nenhum disciplina encontrada");
+        }else {
+            System.out.println("Nenhuma disciplina encontrado");
         }
 
         System.out.println();
