@@ -1,9 +1,10 @@
 package org.example.escola.orm;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import lombok.*;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "disciplinas")
@@ -19,6 +20,11 @@ public class Disciplina {
         this.semestre = semestre;
         this.professor = professor;
     }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "disciplinas_alunos", joinColumns = @JoinColumn(name = "disciplina_fk"), inverseJoinColumns = @JoinColumn(name = "aluno_fk")
+    )
+    private Set<Aluno> alunos = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
@@ -57,12 +63,12 @@ public class Disciplina {
 
     @Override
     public String toString() {
-        return "Professor:{" + professor + "= Disciplina{" +
-                "id=" + id +
+        return "Disciplina{" +
+                "alunos=" + alunos +
+                ", professor=" + professor +
+                ", id=" + id +
                 ", nome='" + nome + '\'' +
                 ", semestre=" + semestre +
-                "}}";
+                '}';
     }
-
-
 }

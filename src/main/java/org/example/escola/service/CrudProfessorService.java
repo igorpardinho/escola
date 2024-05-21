@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
-
+@Transactional
 public class CrudProfessorService {
     private ProfessorRepository professorRepository;
 
@@ -19,7 +19,7 @@ public class CrudProfessorService {
         this.professorRepository = professorRepository;
     }
 
-    @Transactional
+
     public void menu() {
         Scanner scanner = new Scanner(System.in);
         boolean isTrue = true;
@@ -74,16 +74,16 @@ public class CrudProfessorService {
         System.out.println("Professor cadastrado com sucesso!");
 
     }
-    @Transactional
-    protected void listarProfessores() {
+
+    private void listarProfessores() {
         Iterable<Professor> professor = professorRepository.findAll();
         professor.forEach(System.out::println);
 
 
     }
 
-    @Transactional
-    protected void listarProfessor() {
+
+    private void listarProfessor() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Passe o id do professor: ");
         Long id = sc.nextLong();

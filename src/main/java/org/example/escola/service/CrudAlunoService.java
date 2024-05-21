@@ -1,5 +1,6 @@
 package org.example.escola.service;
 
+import jakarta.transaction.Transactional;
 import org.example.escola.repository.AlunoRepository;
 import org.example.escola.orm.Aluno;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
+@Transactional
 public class CrudAlunoService {
 
     private AlunoRepository alunoRepository;
@@ -16,6 +18,7 @@ public class CrudAlunoService {
     public CrudAlunoService(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
     }
+
 
     public void menu() {
         Scanner scanner = new Scanner(System.in);

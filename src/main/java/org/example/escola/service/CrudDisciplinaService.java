@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Scanner;
 
+@Transactional
 @Service
 public class CrudDisciplinaService {
     private DisciplinaRepository disciplinaRepository;
@@ -20,7 +21,7 @@ public class CrudDisciplinaService {
         this.professorRepository = professorRepository;
     }
 
-    @Transactional
+
     public void menu() {
         Scanner scanner = new Scanner(System.in);
         boolean isTrue = true;
@@ -55,6 +56,7 @@ public class CrudDisciplinaService {
 
     }
 
+
     private void deletarDisciplina() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o id da disciplina que deseja deletar: ");
@@ -83,7 +85,7 @@ public class CrudDisciplinaService {
         Optional<Professor> optionalProfessor = professorRepository.findById(professorId);
         if (optionalProfessor.isPresent()) {
             Professor professor = optionalProfessor.get();
-            Disciplina disciplina = new Disciplina(nome, semestre,professor);
+            Disciplina disciplina = new Disciplina(nome, semestre, professor);
             disciplinaRepository.save(disciplina);
             System.out.println("Disciplina cadastrado com sucesso!");
         } else {
@@ -91,12 +93,12 @@ public class CrudDisciplinaService {
         }
 
     }
-@Transactional
-protected void listarDisciplinas() {
+
+    private void listarDisciplinas() {
         Iterable<Disciplina> disciplinas = disciplinaRepository.findAll();
         if (disciplinas.iterator().hasNext()) {
             disciplinas.forEach(System.out::println);
-        }else {
+        } else {
             System.out.println("Nenhuma disciplina encontrado");
         }
 

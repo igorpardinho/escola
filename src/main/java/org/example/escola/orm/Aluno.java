@@ -4,17 +4,31 @@ package org.example.escola.orm;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+
+import java.util.HashSet;
+
+import java.util.Set;
 
 
 @Entity
-@NoArgsConstructor
-@RequiredArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Table(name = "alunos")
 public class Aluno {
 
+    @Deprecated
+    public Aluno() {
+
+    }
+
+    public Aluno(String nome, String cpf, String telefone, String email, String endereco) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "alunos")
+    private Set<Disciplina> disciplinas = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +64,16 @@ public class Aluno {
     @Setter
     @Column(nullable = false)
     private String endereco;
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco='" + endereco + '\'' +
+                '}';
+    }
 }
